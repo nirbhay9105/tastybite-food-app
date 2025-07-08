@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css';
 import Header from './components/Header';
 import FoodList from './components/FoodList';
-import Cart from './components/Cart';
+import Cart from './components/cart';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
 
