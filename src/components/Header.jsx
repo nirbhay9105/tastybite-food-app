@@ -6,26 +6,28 @@ import { useState } from "react";
 import logo from "../assets/logo.png"; 
 
 const Header = () => {
-  const { cartItems, toggleCart } = useCart();
+  const { cartItems, toggleCart } = useCart(); // ✅ toggleCart used here
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = ["Home", "Browse", "Offers", "About", "Contact"];
 
-  return (
-<header className="bg-gradient-to-r from-orange-100 via-yellow-50 to-pink-100 shadow-md sticky top-0 z-20">
-  <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-    
-    {/* Logo Section */}
-    <div className="flex items-center space-x-3 text-orange-600 font-extrabold text-2xl">
-      <img
-         src={logo}
-         alt="Logo"
-         className="w-16 h-15 object-contain"
-         style={{ maxHeight: "48px" }}
-/>
+  // ✅ New logic to show total quantity count (instead of just cartItems.length)
+  const totalItems = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
-      <span>TastyBite</span>
-    </div>
+  return (
+    <header className="bg-gradient-to-r from-orange-100 via-yellow-50 to-pink-100 shadow-md sticky top-0 z-20">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        
+        {/* Logo Section */}
+        <div className="flex items-center space-x-3 text-orange-600 font-extrabold text-2xl">
+          <img
+            src={logo}
+            alt="Logo"
+            className="w-16 h-15 object-contain"
+            style={{ maxHeight: "48px" }}
+          />
+          <span>TastyBite</span>
+        </div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-6 font-semibold text-gray-700">
@@ -40,16 +42,15 @@ const Header = () => {
           ))}
         </nav>
 
-{/* Cart */}
-<div className="relative cursor-pointer" onClick={toggleCart}>
-  <ShoppingCart className="w-6 h-6 text-gray-700" />
-  {cartItems.length > 0 && (
-    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-      {cartItems.length}
-    </span>
-  )}
-</div>
-
+        {/* ✅ Cart icon with working count and toggle on click */}
+        <div className="relative cursor-pointer" onClick={toggleCart}>
+          <ShoppingCart className="w-6 h-6 text-gray-700" />
+          {totalItems > 0 && ( // ✅ Changed from cartItems.length to totalItems
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              {totalItems} {/* ✅ shows total quantity now */}
+            </span>
+          )}
+        </div>
 
         {/* Mobile Hamburger */}
         <button
