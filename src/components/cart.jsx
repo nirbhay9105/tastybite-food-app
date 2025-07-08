@@ -1,14 +1,25 @@
 import { useCart } from "../context/CartContext";
 
 function Cart() {
-  const { cartItems, removeFromCart, updateQty, total, isCartOpen } = useCart();
+  const { cartItems, removeFromCart, updateQty, total, isCartOpen, toggleCart } = useCart();
 
-  if (!isCartOpen) return null; // ❗Hide cart if not open
+  if (!isCartOpen) return null;
 
   return (
     <div className="fixed top-16 right-4 w-96 bg-white shadow-lg rounded-lg p-4 z-50">
-      <h2 className="text-xl font-bold mb-4">🛒 Your Cart</h2>
+      
+      {/* Header with Close Button */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">🛒 Your Cart</h2>
+        <button
+          onClick={toggleCart}
+          className="text-gray-500 hover:text-red-500 text-xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
 
+      {/* Cart Content */}
       {cartItems.length === 0 ? (
         <p className="text-gray-500">Cart is empty.</p>
       ) : (
@@ -48,13 +59,13 @@ function Cart() {
             </div>
           ))}
 
+          {/* Total & Place Order */}
           <div className="text-right mt-4 text-lg font-semibold">
             Total: ₹{total}
           </div>
 
-             <button 
-            
-             className="px-8 py-2 bg-orange-500 text-white rounded-full font-semibold hover:bg-orange-600 transition  left-96"
+          <button
+            className="w-full px-6 py-2 mt-2 bg-orange-500 text-white rounded-full font-semibold hover:bg-orange-600 transition"
           >
             Place Order
           </button>
