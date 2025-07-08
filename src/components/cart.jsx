@@ -29,10 +29,11 @@ function Cart() {
               key={item.name}
               className="flex items-center justify-between border-b pb-2"
             >
-              <div>
-                <h3 className="font-semibold">{item.name}</h3>
-                <p className="text-sm text-gray-600">₹{item.price}</p>
-              </div>
+              <div className="flex-1 min-w-0">
+  <h3 className="font-semibold break-words">{item.name}</h3>
+  <p className="text-sm text-gray-600">₹{item.price}</p>
+</div>
+
 
               <div className="flex items-center gap-2">
                 <button
