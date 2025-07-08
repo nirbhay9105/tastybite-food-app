@@ -68,28 +68,29 @@ const foodData = [
   {
     category: "Drinks",
     items: [
-      {
-        name: "Coca Cola",
-        basePrice: 60,
-        image: drink1,
-        description: "Chilled 330ml can",
-        sizes: ["330ml"]
-      },
-      {
-        name: "Fanta",
-        basePrice: 60,
-        image: drink2,
-        description: "No sugar fizzy refreshment",
-        sizes: ["330ml"]
-      },
-      {
-        name: "Sprite",
-        basePrice: 60,
-        image: drink3,
-        description: "Crisp lemon taste",
-        sizes: ["330ml"]
-      }
-    ]
+  {
+    name: "Coca Cola",
+    basePrice: 60,
+    image: drink1,
+    description: "Chilled 330ml can",
+    sizes: ["330ml", "500ml", "1L"]
+  },
+  {
+    name: "Fanta",
+    basePrice: 60,
+    image: drink2,
+    description: "No sugar fizzy refreshment",
+    sizes: ["330ml", "500ml", "1L"]
+  },
+  {
+    name: "Sprite",
+    basePrice: 60,
+    image: drink3,
+    description: "Crisp lemon taste",
+    sizes: ["330ml", "500ml", "1L"]
+  }
+]
+
   }
 ];
 
