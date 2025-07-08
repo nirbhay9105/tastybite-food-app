@@ -51,6 +51,13 @@ function Cart() {
           <div className="text-right mt-4 text-lg font-semibold">
             Total: ₹{total}
           </div>
+
+             <button 
+            
+             className="px-8 py-2 bg-orange-500 text-white rounded-full font-semibold hover:bg-orange-600 transition  left-96"
+          >
+            Place Order
+          </button>
         </div>
       )}
     </div>
