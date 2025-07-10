@@ -98,43 +98,45 @@ function FoodList() {
   const [search, setSearch] = useState("");
 
   return (
-    <div id="menu" className="max-w-7xl mx-auto px-6 py-10">
-      <div className="flex justify-end mb-6">
-        <div className="relative w-full max-w-xs">
-          <Search className="absolute left-3 top-2.5 text-gray-400 w-5 h-5" />
-          <input
-            type="text"
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-          />
-        </div>
+  <div id="menu" className="max-w-7xl mx-auto px-6 py-10">
+    {/* Search Bar */}
+    <div className="mb-6 px-2 md:px-0">
+      <div className="relative w-full md:w-1/2 mx-auto">
+        <Search className="absolute left-3 top-2.5 text-gray-400 w-5 h-5" />
+        <input
+          type="text"
+          placeholder="Search..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+        />
       </div>
-
-      {foodData.map((group) => {
-        const filteredItems = group.items.filter((item) =>
-          item.name.toLowerCase().includes(search.toLowerCase())
-        );
-
-        if (filteredItems.length === 0) return null;
-
-        return (
-          <div key={group.category} className="mb-10">
-            <h2 className="text-2xl font-bold text-orange-600 mb-4 border-b pb-2">
-              {group.category}
-            </h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {filteredItems.map((food) => (
-                <FoodCard key={food.name} food={food} />
-              ))}
-            </div>
-          </div>
-        );
-      })}
     </div>
-  );
+
+    {/* Food Items */}
+    {foodData.map((group) => {
+      const filteredItems = group.items.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+
+      if (filteredItems.length === 0) return null;
+
+      return (
+        <div key={group.category} className="mb-10">
+          <h2 className="text-2xl font-bold text-orange-600 mb-4 border-b pb-2">
+            {group.category}
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {filteredItems.map((food) => (
+              <FoodCard key={food.name} food={food} />
+            ))}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+);
 }
 
 export default FoodList;
