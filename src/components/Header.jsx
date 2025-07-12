@@ -1,23 +1,39 @@
-// src/components/Header.jsx
-
 import { ShoppingCart, Menu } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useState } from "react";
-import logo from "../assets/logo.png"; 
+import logo from "../assets/logo.png";
+
+import Login from "./Login";
+import Signup from "./Signup";
 
 const Header = () => {
-  const { cartItems, toggleCart } = useCart(); // ✅ toggleCart used here
+  const { cartItems, toggleCart } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navLinks = ["Home", "Browse", "Offers", "About", "Contact"];
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
 
-  // ✅ New logic to show total quantity count (instead of just cartItems.length)
+  const handleOpenLogin = () => {
+    setShowLogin(true);
+    setShowSignup(false);
+  };
+
+  const handleOpenSignup = () => {
+    setShowSignup(true);
+    setShowLogin(false);
+  };
+
+  const handleClose = () => {
+    setShowLogin(false);
+    setShowSignup(false);
+  };
+
+  const navLinks = ["Home", "Browse", "Offers", "About", "Contact"];
   const totalItems = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
   return (
     <header className="bg-gradient-to-r from-orange-100 via-yellow-50 to-pink-100 shadow-md sticky top-0 z-20">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        
         {/* Logo Section */}
         <div className="flex items-center space-x-3 text-orange-600 font-extrabold text-2xl">
           <img
@@ -42,14 +58,23 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* ✅ Cart icon with working count and toggle on click */}
-        <div className="relative cursor-pointer" onClick={toggleCart}>
-          <ShoppingCart className="w-6 h-6 text-gray-700" />
-          {totalItems > 0 && ( // ✅ Changed from cartItems.length to totalItems
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-              {totalItems} {/* ✅ shows total quantity now */}
-            </span>
-          )}
+        {/* Cart + Login */}
+        <div className="flex items-center space-x-4">
+          <div className="relative cursor-pointer" onClick={toggleCart}>
+            <ShoppingCart className="w-6 h-6 text-gray-700" />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </div>
+
+          <button
+            onClick={handleOpenLogin}
+            className="px-4 py-1.5 bg-orange-500 text-white rounded hover:bg-orange-600 text-sm"
+          >
+            Login
+          </button>
         </div>
 
         {/* Mobile Hamburger */}
@@ -76,6 +101,14 @@ const Header = () => {
             ))}
           </nav>
         </div>
+      )}
+
+      {/* Auth Modals */}
+      {showLogin && (
+        <Login onClose={handleClose} switchToSignup={handleOpenSignup} />
+      )}
+      {showSignup && (
+        <Signup onClose={handleClose} switchToLogin={handleOpenLogin} />
       )}
     </header>
   );
