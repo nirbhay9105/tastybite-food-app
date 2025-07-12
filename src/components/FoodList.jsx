@@ -97,6 +97,13 @@ const foodData = [
 function FoodList() {
   const [search, setSearch] = useState("");
 
+  // Flattened all filtered items to check if total match is zero
+  const allFiltered = foodData.flatMap(group =>
+    group.items.filter(item =>
+      item.name.toLowerCase().includes(search.toLowerCase())
+    )
+  );
+
   return (
   <div id="menu" className="max-w-7xl mx-auto px-6 py-10">
     {/* Search Bar */}
@@ -111,8 +118,13 @@ function FoodList() {
           className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
         />
       </div>
+      
     </div>
-
+       {/* 🧠 Show "No match found" if none match */}
+      {allFiltered.length === 0 && (
+        <p className="text-center text-gray-500 text-lg">No matching items found.</p>
+      )}
+    
     {/* Food Items */}
     {foodData.map((group) => {
       const filteredItems = group.items.filter((item) =>
