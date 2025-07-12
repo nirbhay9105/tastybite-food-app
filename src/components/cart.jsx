@@ -24,20 +24,18 @@ function Cart() {
         return;
       }
 
-      // Build order message
       const itemsList = cartItems
         .map((item) => `${item.name} x ${item.qty} = ₹${item.qty * item.price}`)
         .join("\n");
-      
 
       const message = 
- `  *New Order from TastyBite*\n\n` +
-  ` *Order Details:*\n${itemsList}\n\n` +
-  ` *Total:* ₹${total}\n\n` +
-  ` *Name:* ${name}\n *Mobile:* ${mobile}`;
+        `*🧾 New Order from TastyBite*\n\n` +
+        `*🛍️ Order Details:*\n${itemsList}\n\n` +
+        `*💰 Total:* ₹${total}\n\n` +
+        `*👤 Name:* ${name}\n*📞 Mobile:* ${mobile}`;
 
-const encoded = encodeURIComponent(message);
-const link = `https://wa.me/919105468448?text=${encoded}`;
+      const encoded = encodeURIComponent(message);
+      const link = `https://wa.me/919105468448?text=${encoded}`;
 
       window.open(link, "_blank");
     }
@@ -46,7 +44,8 @@ const link = `https://wa.me/919105468448?text=${encoded}`;
   if (!isCartOpen) return null;
 
   return (
-    <div className="fixed top-16 right-4 w-96 max-h-[80vh] bg-white shadow-lg rounded-lg p-4 z-50 flex flex-col">
+    <div className="fixed top-16 right-2 sm:right-4 w-full sm:w-[400px] max-w-full max-h-[90vh] bg-white shadow-lg rounded-lg p-4 z-50 flex flex-col">
+      
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">🛒 Your Cart</h2>
@@ -102,7 +101,7 @@ const link = `https://wa.me/919105468448?text=${encoded}`;
         )}
       </div>
 
-      {/* Total + Name/Mobile (step 2) + Place Order Button */}
+      {/* Footer: Total + Input + Button */}
       {cartItems.length > 0 && (
         <div className="mt-4 space-y-3">
           <div className="text-right text-lg font-semibold">
